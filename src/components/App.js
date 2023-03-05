@@ -7,6 +7,7 @@ import Error from '../pages/Error/Error';
 import Footer from './Footer/Footer';
 import Home from '../pages/Home/Home';
 import Login from './Login/Login';
+import User from './User/User';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/user" element={<User />} />
         <Route path="/*" element={<Error />} />
       </Routes>
       <Footer />
