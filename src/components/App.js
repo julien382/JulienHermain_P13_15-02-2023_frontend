@@ -6,6 +6,7 @@ import Header from './Header/Header';
 import Error from '../pages/Error/Error';
 import Footer from './Footer/Footer';
 import Home from '../pages/Home/Home';
+import Login from './Login/Login';
 
 function App() {
   return (
