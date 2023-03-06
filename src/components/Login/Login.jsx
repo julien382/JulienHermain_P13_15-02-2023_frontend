@@ -1,6 +1,53 @@
+import { useState } from 'react'
 import './Login.css'
 
 const Login = () => {
+
+    const [email, setEmail] = useState("")
+
+    const [password, setPassword] = useState("")
+
+    const handleEmail = (event) => {
+        setEmail(event.target.value)
+    }
+
+    const handlePassword = (event) => {
+        setPassword(event.target.value)    
+    }
+
+    const onSubmit = async (event) => {
+        event.preventDefault()
+
+        console.log("toto");
+
+        const payload = {email, password}
+        
+        try {
+            const response = await fetch("http://localhost:3001/api/v1/user/login",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json",
+                    /*"Authorization":`Bearer ${token}`*/
+                },
+                body:JSON.stringify(payload)
+            })
+
+            if (response.ok){
+                const data = await response.json()
+                console.log(data);
+                /* mettre data.body.token dans redux  
+                rediriger vers /profile */
+            }
+
+        } catch (error) {
+            console.log(error);
+            /* email ou mot de passe incorrect */
+        }
+
+    }
+
+
     return (
          <main className="main bg-dark">
             <section className="sign-in-content">
@@ -8,17 +55,16 @@ const Login = () => {
                 <h1>Sign In</h1>
                 <form>
                     <div className="input-wrapper">
-                        <label for="username">Username</label><input type="text" id="username" />
+                        <label for="email">Email</label><input onChange={(e) => {handleEmail(e)}} type="text" id="email" />
                     </div>
                     <div className="input-wrapper">
-                        <label for="password">Password</label><input type="password" id="password" />
+                        <label for="password">Password</label><input onChange={(e) => {handlePassword(e)}} type="password" id="password" />
                     </div>
                     <div className="input-remember">
                         <input type="checkbox" id="remember-me" /><label for="remember-me"
                         >Remember me</label>
                     </div>
-                    <a href="./user.html" className="sign-in-button">Sign In</a>
-                    <button className="sign-in-button">Sign In</button>
+                    <button onClick={(e) => {onSubmit(e)}} className="sign-in-button">Sign In</button>
                 </form>
             </section>
         </main>
