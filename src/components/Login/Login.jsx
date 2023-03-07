@@ -4,7 +4,6 @@ import './Login.css'
 const Login = () => {
 
     const [email, setEmail] = useState("")
-
     const [password, setPassword] = useState("")
 
     const handleEmail = (event) => {
@@ -15,12 +14,13 @@ const Login = () => {
         setPassword(event.target.value)    
     }
 
+
     const onSubmit = async (event) => {
         event.preventDefault()
 
         console.log("toto");
 
-        const remember = document.getElementById("remember-me").checked;
+        //const remember = document.getElementById("remember-me").checked;
         const payload = {email, password}
         
         try {
@@ -29,7 +29,7 @@ const Login = () => {
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
-                    /*"Authorization":`Bearer ${token}`*/
+                    /*"Authorization":`Bearer ${token}`*/ /*a mettre ca dans l'endroit ou ca récupére (/user) */
                 },
                 body:JSON.stringify(payload)
             })
