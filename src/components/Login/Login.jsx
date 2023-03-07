@@ -20,6 +20,7 @@ const Login = () => {
 
         console.log("toto");
 
+        const remember = document.getElementById("remember-me").checked;
         const payload = {email, password}
         
         try {
@@ -42,6 +43,7 @@ const Login = () => {
 
         } catch (error) {
             console.log(error);
+            console.log("Email ou Mot de passe incorrect");
             /* email ou mot de passe incorrect */
         }
 
