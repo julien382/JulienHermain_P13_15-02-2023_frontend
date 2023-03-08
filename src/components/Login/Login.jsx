@@ -5,6 +5,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
 
     const handleEmail = (event) => {
         setEmail(event.target.value)
@@ -17,8 +18,6 @@ const Login = () => {
 
     const onSubmit = async (event) => {
         event.preventDefault()
-
-        console.log("toto");
 
         //const remember = document.getElementById("remember-me").checked;
         const payload = {email, password}
@@ -35,18 +34,22 @@ const Login = () => {
             })
 
             if (response.ok){
+                setErrorMessage('');
                 const data = await response.json()
                 console.log(data);
                 /* mettre data.body.token dans redux  
                 rediriger vers /profile */
             }
+            else{
+                setErrorMessage("L'email ou le mot de passe est incorrect. Veuillez réessayer.");
+                console.log("Email ou Mot de passe incorrect");
+            }
 
-        } catch (error) {
-            console.log(error);
-            console.log("Email ou Mot de passe incorrect");
-            /* email ou mot de passe incorrect */
         }
-
+        catch (error) {
+            console.log(error);
+            console.log("Email ou Mot de passe incorrect"); /* ? il sert à quoi le catch si ya deja le log erreur au dessus */
+        }
     }
 
 
@@ -67,6 +70,7 @@ const Login = () => {
                         >Remember me</label>
                     </div>
                     <button onClick={(e) => {onSubmit(e)}} className="sign-in-button">Sign In</button>
+                    {errorMessage && <p className="errorMessage">{errorMessage}</p>}
                 </form>
             </section>
         </main>
