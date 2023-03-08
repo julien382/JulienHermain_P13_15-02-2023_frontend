@@ -1,4 +1,4 @@
-import './User.css'
+/*import './User.css'
 
 const User = () => {
     return (
@@ -42,4 +42,125 @@ const User = () => {
     )
 }
 
-export default User
+export default User*/
+
+/*
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+import React, { useState, useEffect } from "react";
+
+function User() {
+    const [userData, setUserData] = useState({});
+  
+    const handleLogout = () => {
+      localStorage.removeItem("token");
+    };
+  
+    const fetchUserData = () => {
+        fetch("http://localhost:3001/api/v1/user/profile", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Impossible de récupérer les données de l'utilisateur");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            setUserData(data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      };
+    
+      useEffect(() => {
+        fetchUserData();
+      }, []);
+  
+    return (
+      <div>
+        <h1>Bienvenue sur votre page utilisateur</h1>
+        <button onClick={handleLogout}>Se déconnecter</button>
+        <p>Prénom: {userData.firstName}</p>
+        <p>Nom: {userData.lastName}</p>
+        <p>Email: {userData.email}</p>
+      </div>
+    );
+}
+  
+  
+export default User;
+*/
+
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setUserdata, logout } from "../services/action";
+
+function User({ userData, isLoggedIn, setUserData, logout }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    logout();
+    navigate('/');
+  };
+
+  const fetchUserData = () => {
+    fetch("http://localhost:3001/api/v1/user/profile", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Impossible de récupérer les données de l'utilisateur");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUserData(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  return (
+    <div>
+      {isLoggedIn ? (
+        <div>
+          <h1>Bienvenue sur votre page utilisateur</h1>
+          <p>Nom : {userData.name}</p>
+          <p>Email : {userData.email}</p>
+          <button onClick={handleLogout}>Déconnexion</button>
+        </div>
+      ) : (
+        <p>Chargement en cours...</p>
+      )}
+    </div>
+  );
+}
+
+const mapStateToProps = (state) => ({
+  userData: state.userData,
+  isLoggedIn: state.isLoggedIn,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  setUserdata: (data) => dispatch(setUserdata(data)),
+  logout: () => dispatch(logout()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(User);

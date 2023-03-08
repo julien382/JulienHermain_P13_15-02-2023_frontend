@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import './Login.css'
+import { useNavigate } from 'react-router-dom'
+import { setUserdata } from '../../services/action'
 
 const Login = () => {
 
@@ -7,6 +9,8 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
     const [rememberMe, setRememberMe] = useState(false);
+
+    const navigate = useNavigate();
 
     const handleEmail = (event) => {
         setEmail(event.target.value)
@@ -55,9 +59,14 @@ const Login = () => {
             if (response.ok){
                 setErrorMessage('');
                 const data = await response.json()
+
                 console.log(data);
                 /* mettre data.body.token dans redux  
                 rediriger vers /profile */
+
+                localStorage.setItem("token", data.token);
+                setUserdata(data.user);
+                navigate('/user');
 
                 // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
                 if (rememberMe) {
