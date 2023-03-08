@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Login.css'
 
 const Login = () => {
@@ -6,6 +6,7 @@ const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
+    const [rememberMe, setRememberMe] = useState(false);
 
     const handleEmail = (event) => {
         setEmail(event.target.value)
@@ -15,11 +16,29 @@ const Login = () => {
         setPassword(event.target.value)    
     }
 
+    const handleRememberMe = (event) => {
+        setRememberMe(event.target.checked);
+        console.log(rememberMe);
+    }
+
+    useEffect(() => {
+        // Récupérer les informations de connexion stockées dans le stockage local
+        const savedLoginInfo = JSON.parse(localStorage.getItem('loginInfo')) || {};
+        const savedEmail = savedLoginInfo.email || '';
+        const savedPassword = savedLoginInfo.password || '';
+    
+        // Pré-remplir le champ de mot de passe si des informations de connexion ont été stockées
+        if (savedEmail !== '') {
+            setEmail(savedEmail);
+        }
+        if (savedPassword !== '') {
+            setPassword(savedPassword);
+            setRememberMe(true);
+        }
+      }, []);
 
     const onSubmit = async (event) => {
         event.preventDefault()
-
-        //const remember = document.getElementById("remember-me").checked;
         const payload = {email, password}
         
         try {
@@ -39,6 +58,13 @@ const Login = () => {
                 console.log(data);
                 /* mettre data.body.token dans redux  
                 rediriger vers /profile */
+
+                // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
+                if (rememberMe) {
+                    localStorage.setItem('loginInfo', JSON.stringify({ email, password }));
+                } else {
+                    localStorage.removeItem('loginInfo');
+                }
             }
             else{
                 setErrorMessage("L'email ou le mot de passe est incorrect. Veuillez réessayer.");
@@ -66,8 +92,7 @@ const Login = () => {
                         <label for="password">Password</label><input onChange={(e) => {handlePassword(e)}} type="password" id="password" />
                     </div>
                     <div className="input-remember">
-                        <input type="checkbox" id="remember-me" /><label for="remember-me"
-                        >Remember me</label>
+                        <input type="checkbox" checked={rememberMe} onChange={handleRememberMe} id="remember-me" /><label for="remember-me">Remember me</label>
                     </div>
                     <button onClick={(e) => {onSubmit(e)}} className="sign-in-button">Sign In</button>
                     {errorMessage && <p className="errorMessage">{errorMessage}</p>}
