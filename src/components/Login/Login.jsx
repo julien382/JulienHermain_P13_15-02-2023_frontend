@@ -70,7 +70,7 @@ const Login = () => {
 
                 // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
                 if (rememberMe) {
-                    localStorage.setItem('loginInfo', JSON.stringify({ email, password }));
+                    localStorage.setItem('loginInfo', JSON.stringify(payload));
                 } else {
                     localStorage.removeItem('loginInfo');
                 }

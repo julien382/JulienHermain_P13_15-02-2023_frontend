@@ -110,13 +110,13 @@ function User({ userData, isLoggedIn, setUserData, logout }) {
     logout();
     navigate('/');
   };
-
+  const token = localStorage.getItem('token');
   const fetchUserData = () => {
     fetch("http://localhost:3001/api/v1/user/profile", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => {
