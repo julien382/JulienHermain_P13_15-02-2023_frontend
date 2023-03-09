@@ -100,7 +100,7 @@ export default User;
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setUserdata, logout } from "../services/action";
+import { setUserdata, logout } from "../../services/action";
 
 function User({ userData, isLoggedIn, setUserData, logout }) {
   const navigate = useNavigate();
