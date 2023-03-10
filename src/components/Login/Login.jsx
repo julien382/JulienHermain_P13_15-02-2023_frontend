@@ -94,10 +94,10 @@ const Login = () => {
                 <h1>Sign In</h1>
                 <form>
                     <div className="input-wrapper">
-                        <label for="email">Email</label><input onChange={(e) => {handleEmail(e)}} type="text" id="email" />
+                        <label for="email">Email</label><input onChange={e => setEmail(e.target.value)} type="text" id="email" />
                     </div>
                     <div className="input-wrapper">
-                        <label for="password">Password</label><input onChange={(e) => {handlePassword(e)}} type="password" id="password" />
+                        <label for="password">Password</label><input onChange={e => setPassword(e.target.value)} type="password" id="password" />
                     </div>
                     <div className="input-remember">
                         <input type="checkbox" checked={rememberMe} onChange={handleRememberMe} id="remember-me" /><label for="remember-me">Remember me</label>
