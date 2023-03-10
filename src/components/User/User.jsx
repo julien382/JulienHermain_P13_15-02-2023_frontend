@@ -45,7 +45,7 @@ const User = () => {
 export default User*/
 
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function User({ userData }) {
@@ -57,38 +57,38 @@ function User({ userData }) {
     navigate('/');
   };
 
-  const fetchUserData = () => {
-    fetch("http://localhost:3001/api/v1/user/profile", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Impossible de récupérer les données de l'utilisateur");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-
   useEffect(() => {
+    const fetchUserData = () => {
+      fetch("http://localhost:3001/api/v1/user/profile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Impossible de récupérer les données de l'utilisateur");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    };
+  
     fetchUserData();
-  }, []);
+  }, [token]);
 
   return (
     <div>
         <div>
           <h1>Bienvenue sur votre page utilisateur</h1>
-          <p>Email : {userData.email}</p>
-          <p>Prénom : {userData.firstName}</p>
+          <p>Email : {userData}</p>
+          <p>Prénom : {userData}</p>
           <button onClick={handleLogout}>Déconnexion</button>
         </div>
         <p>Chargement en cours...</p>
