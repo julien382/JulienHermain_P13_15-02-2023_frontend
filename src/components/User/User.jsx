@@ -126,7 +126,8 @@ function User({ userData, isLoggedIn, setUserData, logout }) {
         return response.json();
       })
       .then((data) => {
-        setUserData(data);
+        console.log(data);
+        /*setUserData(data);*/
       })
       .catch((error) => {
         console.error(error);

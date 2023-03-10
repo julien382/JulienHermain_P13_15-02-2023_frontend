@@ -64,8 +64,8 @@ const Login = () => {
                 /* mettre data.body.token dans redux  
                 rediriger vers /profile */
 
-                localStorage.setItem("token", data.token);
-                setUserdata(data.user);
+                localStorage.setItem("token", data.body.token);
+                /*setUserdata(data.user);*/
                 navigate('/user');
 
                 // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
@@ -83,7 +83,7 @@ const Login = () => {
         }
         catch (error) {
             console.log(error);
-            console.log("Email ou Mot de passe incorrect"); /* ? il sert à quoi le catch si ya deja le log erreur au dessus */
+            console.log("Email ou Mot de passe incorrect"); /* ? il sert à quoi le catch si ya deja le log erreur au dessus (je pense qu'il faut mettre une erreur de connection avec la bdd) */
         }
     }
 
