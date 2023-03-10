@@ -11,14 +11,6 @@ const Login = () => {
 
     const navigate = useNavigate();
 
-    const handleEmail = (event) => {
-        setEmail(event.target.value)
-    }
-
-    const handlePassword = (event) => {
-        setPassword(event.target.value)    
-    }
-
     const handleRememberMe = (event) => {
         setRememberMe(event.target.checked);
         console.log(rememberMe);
@@ -58,10 +50,7 @@ const Login = () => {
             if (response.ok){
                 setErrorMessage('');
                 const data = await response.json()
-
                 console.log(data);
-                /* mettre data.body.token dans redux  
-                rediriger vers /profile */
 
                 localStorage.setItem("token", data.body.token);
                 /*setUserdata(data.user);*/
