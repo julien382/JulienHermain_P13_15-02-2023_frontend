@@ -60,7 +60,7 @@ function User({ userData }) {
   useEffect(() => {
     const fetchUserData = () => {
       fetch("http://localhost:3001/api/v1/user/profile", {
-        method: "GET",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
