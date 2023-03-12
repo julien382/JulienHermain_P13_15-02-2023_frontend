@@ -45,12 +45,13 @@ const User = () => {
 export default User*/
 
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function User({ userData }) {
+const User = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  const [userData, setUserData] = useState(null);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -73,6 +74,7 @@ function User({ userData }) {
           return response.json();
         })
         .then((data) => {
+          setUserData(data);
           console.log(data);
         })
         .catch((error) => {
@@ -87,11 +89,10 @@ function User({ userData }) {
     <div>
         <div>
           <h1>Bienvenue sur votre page utilisateur</h1>
-          <p>Email : {userData}</p>
-          <p>Prénom : {userData}</p>
+          <p>Email : {userData && userData.body.email}</p>
+          <p>Prénom : {userData && userData.body.firstName}</p>
           <button onClick={handleLogout}>Déconnexion</button>
         </div>
-        <p>Chargement en cours...</p>
     </div>
   );
 }
