@@ -6,7 +6,7 @@ const User = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
   const [userData, setUserData] = useState(null);
-  const fullName = userData.body.firstName + " " + userData.body.lastName
+  const fullName = userData && userData.body.firstName + " " + userData && userData.body.lastName
 
   const handleLogout = () => {
     localStorage.removeItem("token");
