@@ -1,7 +1,31 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import rootReducer from "./reducer";
+import { createStore } from 'redux';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+// Action types
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
+
+// Action creators
+export function login(user) {
+  return { type: LOGIN, user };
+}
+
+export function logout() {
+  return { type: LOGOUT };
+}
+
+// Reducer
+function reducer(state = { user: null }, action) {
+  switch (action.type) {
+    case LOGIN:
+      return { user: action.user };
+    case LOGOUT:
+      return { user: null };
+    default:
+      return state;
+  }
+}
+
+// Store
+const store = createStore(reducer);
 
 export default store;
