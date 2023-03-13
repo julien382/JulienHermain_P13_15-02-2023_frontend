@@ -42,37 +42,41 @@ const Login = () => {
                 method:"POST",
                 headers:{
                     "Content-Type":"application/json",
-                    /*"Authorization":`Bearer ${token}`*/ /*a mettre ca dans l'endroit ou ca récupére (/user) */
                 },
                 body:JSON.stringify(payload)
             })
 
             if (response.ok){
-                setErrorMessage('');
-                const data = await response.json()
-                console.log(data);
+                if(response !== 200){
+                    localStorage.removeItem("token");
+                    setErrorMessage("Une erreur c'est produite");
+                }
+                else{
+                    setErrorMessage('');
+                    const data = await response.json()
+                    console.log(data);
 
-                localStorage.setItem("token", data.body.token);
-                /*setUserdata(data.user);*/
-                navigate('/user');
-
-                // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
-                if (rememberMe) {
-                    localStorage.setItem('loginInfo', JSON.stringify(payload));
-                } else {
-                    localStorage.removeItem('loginInfo');
+                    localStorage.setItem("token", data.body.token);
+                    /*setUserdata(data.user);*/
+                    
+                    // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
+                    if (rememberMe) {
+                        localStorage.setItem('loginInfo', JSON.stringify(payload));
+                    } else {
+                        localStorage.removeItem('loginInfo');
+                    }
+                    navigate('/user');
                 }
             }
             else{
-                setErrorMessage("L'email ou le mot de passe est incorrect. Veuillez réessayer.");
-                console.log("Email ou Mot de passe incorrect");
+                setErrorMessage("L'email ou le mot de passe est incorrect.");
             }
 
         }
         catch (error) {
             console.log(error);
-            console.log("Email ou Mot de passe incorrect"); /* ? il sert à quoi le catch si ya deja le log erreur au dessus (je pense qu'il faut mettre une erreur de connection avec la bdd) */
-        }
+            console.log("Une erreur c'est produite"); 
+             }
     }
 
 
