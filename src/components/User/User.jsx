@@ -1,15 +1,21 @@
 import './User.css'
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+import { logout } from '../../services/store'
 
 const User = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
+  //const token = localStorage.getItem('token');
   const [userData, setUserData] = useState(null);
   const fullName = userData && userData.body.firstName + " " + userData.body.lastName
 
+  const dispatch = useDispatch()
+  const token = localStorage.getItem('token')
+
   const handleLogout = () => {
     localStorage.removeItem("token");
+    dispatch(logout())
     navigate('/');
   };
 

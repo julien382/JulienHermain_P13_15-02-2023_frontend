@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import './Login.css'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login } from '../../services/store'
 
 const Login = () => {
 
@@ -10,6 +12,7 @@ const Login = () => {
     const [rememberMe, setRememberMe] = useState(false);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch()
 
     const handleRememberMe = (event) => {
         setRememberMe(event.target.checked);
@@ -47,16 +50,18 @@ const Login = () => {
             })
 
             if (response.ok){
-                if(response !== 200){
+                /*if(response !== 200){
                     localStorage.removeItem("token");
                     setErrorMessage("Une erreur c'est produite");
                 }
-                else{
+                else{*/
                     setErrorMessage('');
                     const data = await response.json()
+                    localStorage.setItem("token", data.body.token); // mettre ca en commentaire pour tester avec redux
+                    dispatch(login({ token: data.body.token }))
+
                     console.log(data);
 
-                    localStorage.setItem("token", data.body.token);
                     /*setUserdata(data.user);*/
                     
                     // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
@@ -66,7 +71,7 @@ const Login = () => {
                         localStorage.removeItem('loginInfo');
                     }
                     navigate('/user');
-                }
+               // }
             }
             else{
                 setErrorMessage("L'email ou le mot de passe est incorrect.");

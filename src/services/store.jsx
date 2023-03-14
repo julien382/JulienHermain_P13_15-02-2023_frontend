@@ -1,31 +1,54 @@
-import { createStore } from 'redux';
+/*import { createSlice } from '@reduxjs/toolkit'
 
-// Action types
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+const authSlice = createSlice({
+  name: 'auth',
+  initialState: {
+    isAuthenticated: false,
+    token: null,
+  },
+  reducers: {
+    loginSuccess: (state, action) => {
+      state.isAuthenticated = true
+      state.token = action.payload.token // mettre le bon chemin
+    },
+    logoutSuccess: (state) => {
+      state.isAuthenticated = false
+      state.token = null
+    },
+  },
+})
 
-// Action creators
-export function login(user) {
-  return { type: LOGIN, user };
-}
+export const { loginSuccess, logoutSuccess } = authSlice.actions
+export default authSlice.reducer*/
 
-export function logout() {
-  return { type: LOGOUT };
-}
 
-// Reducer
-function reducer(state = { user: null }, action) {
-  switch (action.type) {
-    case LOGIN:
-      return { user: action.user };
-    case LOGOUT:
-      return { user: null };
-    default:
-      return state;
-  }
-}
 
-// Store
-const store = createStore(reducer);
+import { configureStore, createSlice } from "@reduxjs/toolkit";
+
+const authSlice = createSlice({
+  name: "auth",
+  initialState: {
+    isLoggedIn: false,
+    user: null,
+  },
+  reducers: {
+    login: (state, action) => {
+      state.isLoggedIn = true;
+      state.user = action.payload;
+    },
+    logout: (state) => {
+      state.isLoggedIn = false;
+      state.user = null;
+    },
+  },
+});
+
+export const { login, logout } = authSlice.actions;
+
+export const isLoggedIn = (state) => state.auth.isLoggedIn; // définir isLoggedIn comme fonction
+
+const store = configureStore({
+  reducer: authSlice.reducer,
+});
 
 export default store;

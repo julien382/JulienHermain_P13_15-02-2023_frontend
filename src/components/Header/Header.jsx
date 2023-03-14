@@ -1,10 +1,13 @@
 import './Header.css'
 import { Link } from 'react-router-dom'
 import argentBankLogo from '../../assets/argentBankLogo.png'
+import { useSelector } from "react-redux";
+import { isLoggedIn } from "../../services/store";
 
 const Header = () => {
 
-    const isLogin = false
+    const isAuthenticated = isLoggedIn;
+    console.log(isLoggedIn);
     
     return (
         <header>
@@ -14,7 +17,7 @@ const Header = () => {
                     <h1 className="sr-only">Argent Bank</h1>
                 </Link>
                 <div>
-                    {isLogin ? (
+                    {isAuthenticated ? (
                         <Link className="main-nav-item" to="/">
                             <i className="fa fa-sign-out"></i>Sign Out
                         </Link>
