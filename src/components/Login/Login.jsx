@@ -16,7 +16,6 @@ const Login = () => {
 
     const handleRememberMe = (event) => {
         setRememberMe(event.target.checked);
-        console.log(rememberMe);
     }
 
     useEffect(() => {
@@ -48,17 +47,15 @@ const Login = () => {
                 },
                 body:JSON.stringify(payload)
             })
-            console.log(response);
 
             if (response.ok){
                 if(response.status === 200){
                     setErrorMessage('');
                     const data = await response.json()
                     
-                    localStorage.setItem("token", data.body.token); // mettre ca en commentaire pour tester avec redux
+                    //localStorage.setItem("token", data.body.token);
                     
                     dispatch(userLogin({ token: data.body.token }))
-                    
                     console.log(userLogin({ token: data.body.token }));
                     console.log(data);
                                         
@@ -81,8 +78,8 @@ const Login = () => {
         }
         catch (error) {
             console.log(error);
-            alert("Une erreur c'est produite"); 
-             }
+            alert("Une erreur c'est produite");     
+        }
     }
 
 
