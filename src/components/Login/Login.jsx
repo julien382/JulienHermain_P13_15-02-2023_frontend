@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './Login.css'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { userLogin } from '../../services/store'
+import { userAuthentification } from '../../services/store'
 
 const Login = () => {
 
@@ -55,8 +55,8 @@ const Login = () => {
                     
                     //localStorage.setItem("token", data.body.token);
                     
-                    dispatch(userLogin({ token: data.body.token }))
-                    console.log(userLogin({ token: data.body.token }));
+                    dispatch(userAuthentification(data))
+                    console.log(dispatch(userAuthentification(data)));
                     console.log(data);
                                         
                     // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
