@@ -7,11 +7,11 @@ import { userLogout } from '../../services/store';
 
 const Header = () => {
     
+    const isAuthenticated = useSelector(state => state.isLogged);
+    const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(userLogout());
     };
-    const isAuthenticated = useSelector(state => state.isLogged);
-    const dispatch = useDispatch();
 
     
     return (

@@ -1,18 +1,20 @@
 import './User.css'
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux'
+import { userLogin } from '../../services/store';
+import { useDispatch } from 'react-redux';
+
 
 const User = () => {
-  const navigate = useNavigate();
   //const token = localStorage.getItem('token');
   const [userData, setUserData] = useState(null);
   //const fullName = userData && userData.body.firstName + " " + userData.body.lastName
   const firstName = useSelector(state => state.firstName);
   const lastName = useSelector(state => state.lastName);
   const fullName = firstName + " " + lastName;
-
-
+  const dispatch = useDispatch();
+  dispatch(userLogin({firstName: firstName}));
+  console.log(dispatch(userLogin({firstName: firstName})));
   //const token = useSelector(state => state.token);
   //console.log(token);
   const token = localStorage.getItem('token')

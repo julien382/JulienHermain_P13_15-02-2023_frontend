@@ -41,7 +41,6 @@ const userSlice = createSlice({
 
     userLogout() {
       // reset the state to its initial value
-      console.log("toto");
       return initialState
     },
   },
