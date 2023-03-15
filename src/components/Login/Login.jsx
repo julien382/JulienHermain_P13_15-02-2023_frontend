@@ -48,25 +48,20 @@ const Login = () => {
                 },
                 body:JSON.stringify(payload)
             })
+            console.log(response);
 
             if (response.ok){
-                /*if(response !== 200){ // faire l'inverse si status == 200 faire le dispatch(userLogin) 
-                    localStorage.removeItem("token");
-                    setErrorMessage("Une erreur c'est produite");
-                }
-                else{*/
+                if(response.status === 200){
                     setErrorMessage('');
                     const data = await response.json()
-
+                    
                     localStorage.setItem("token", data.body.token); // mettre ca en commentaire pour tester avec redux
-
+                    
                     dispatch(userLogin({ token: data.body.token }))
                     
                     console.log(userLogin({ token: data.body.token }));
                     console.log(data);
-
-                    /*setUserdata(data.user);*/
-                    
+                                        
                     // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
                     if (rememberMe) {
                         localStorage.setItem('loginInfo', JSON.stringify(payload));
@@ -74,7 +69,10 @@ const Login = () => {
                         localStorage.removeItem('loginInfo');
                     }
                     navigate('/user');
-               // }
+                }
+                else{
+                    setErrorMessage("Une erreur c'est produite.");
+                }
             }
             else{
                 setErrorMessage("L'email ou le mot de passe est incorrect.");
@@ -83,7 +81,7 @@ const Login = () => {
         }
         catch (error) {
             console.log(error);
-            console.log("Une erreur c'est produite"); 
+            alert("Une erreur c'est produite"); 
              }
     }
 
