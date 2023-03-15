@@ -92,13 +92,13 @@ const Login = () => {
                 <h1>Sign In</h1>
                 <form>
                     <div className="input-wrapper">
-                        <label for="email">Email</label><input onChange={e => setEmail(e.target.value)} type="text" id="email" />
+                        <label htmlFor="email">Email</label><input onChange={e => setEmail(e.target.value)} type="text" id="email" />
                     </div>
                     <div className="input-wrapper">
-                        <label for="password">Password</label><input onChange={e => setPassword(e.target.value)} type="password" id="password" />
+                        <label htmlFor="password">Password</label><input onChange={e => setPassword(e.target.value)} type="password" id="password" />
                     </div>
                     <div className="input-remember">
-                        <input type="checkbox" checked={rememberMe} onChange={handleRememberMe} id="remember-me" /><label for="remember-me">Remember me</label>
+                        <label htmlFor="remember-me">Remember me</label><input type="checkbox" checked={rememberMe} onChange={handleRememberMe} id="remember-me" />
                     </div>
                     <button onClick={(e) => {onSubmit(e)}} className="sign-in-button">Sign In</button>
                     {errorMessage && <p className="errorMessage">{errorMessage}</p>}
