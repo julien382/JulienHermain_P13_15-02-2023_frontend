@@ -50,16 +50,19 @@ const Login = () => {
             })
 
             if (response.ok){
-                /*if(response !== 200){
+                /*if(response !== 200){ // faire l'inverse si status == 200 faire le dispatch(userLogin) 
                     localStorage.removeItem("token");
                     setErrorMessage("Une erreur c'est produite");
                 }
                 else{*/
                     setErrorMessage('');
                     const data = await response.json()
-                    localStorage.setItem("token", data.body.token); // mettre ca en commentaire pour tester avec redux
-                    dispatch(userLogin({ token: data.body.token }))
 
+                    localStorage.setItem("token", data.body.token); // mettre ca en commentaire pour tester avec redux
+
+                    dispatch(userLogin({ token: data.body.token }))
+                    
+                    console.log(userLogin({ token: data.body.token }));
                     console.log(data);
 
                     /*setUserdata(data.user);*/

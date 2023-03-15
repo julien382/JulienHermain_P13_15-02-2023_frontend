@@ -6,6 +6,10 @@ import { useSelector } from 'react-redux'
 const Header = () => {
 
     const isAuthenticated = useSelector(state => state.isLogged);
+
+    const handleLogout = () => {
+        // appeler userLogout
+      };
     
     return (
         <header>
@@ -20,10 +24,10 @@ const Header = () => {
                             <i className="fa fa-sign-out"></i>Sign Out
                         </Link>
                     ):(
-                    <Link className="main-nav-item" to="/login">
-                        <i className="fa fa-user-circle"></i>Sign In
-                    </Link>)
-                    }
+                        <Link onClick={handleLogout} className="main-nav-item" to="/login">
+                            <i className="fa fa-user-circle"></i>Sign In
+                        </Link>
+                    )}
                 </div>
             </nav>
         </header>
