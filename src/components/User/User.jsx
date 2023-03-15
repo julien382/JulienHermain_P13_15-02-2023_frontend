@@ -2,7 +2,7 @@ import './User.css'
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux'
-import { logout } from '../../services/store'
+import { userLogout } from '../../services/store'
 
 const User = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const User = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    dispatch(logout())
+    dispatch(userLogout())
     navigate('/');
   };
 

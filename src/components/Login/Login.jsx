@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './Login.css'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { login } from '../../services/store'
+import { userLogin } from '../../services/store'
 
 const Login = () => {
 
@@ -58,7 +58,7 @@ const Login = () => {
                     setErrorMessage('');
                     const data = await response.json()
                     localStorage.setItem("token", data.body.token); // mettre ca en commentaire pour tester avec redux
-                    dispatch(login({ token: data.body.token }))
+                    dispatch(userLogin({ token: data.body.token }))
 
                     console.log(data);
 

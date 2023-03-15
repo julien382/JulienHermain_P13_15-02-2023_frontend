@@ -1,13 +1,11 @@
 import './Header.css'
 import { Link } from 'react-router-dom'
 import argentBankLogo from '../../assets/argentBankLogo.png'
-import { useSelector } from "react-redux";
-import { isLoggedIn } from "../../services/store";
+import { useSelector } from 'react-redux'
 
 const Header = () => {
 
-    const isAuthenticated = isLoggedIn;
-    console.log(isLoggedIn);
+    const isAuthenticated = useSelector(state => state.isLogged);
     
     return (
         <header>
