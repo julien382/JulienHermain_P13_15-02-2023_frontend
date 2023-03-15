@@ -13,16 +13,9 @@ const User = () => {
   const fullName = firstName + " " + lastName;
 
 
-  const token = useSelector(state => state.token);
-  console.log(token);
-  //const token = localStorage.getItem('token')
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate('/');
-  };
-
-
+  //const token = useSelector(state => state.token);
+  //console.log(token);
+  const token = localStorage.getItem('token')
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -51,9 +44,9 @@ const User = () => {
     fetchUserData();
   }, [token]);
 
+
   return (
     <div>
-        <button onClick={handleLogout}>Déconnexion</button>
         <main className="main bg-dark">
             <div className="header">
                 <h1>Welcome back<br />{fullName}</h1>

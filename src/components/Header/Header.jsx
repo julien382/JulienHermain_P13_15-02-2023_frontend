@@ -2,14 +2,17 @@ import './Header.css'
 import { Link } from 'react-router-dom'
 import argentBankLogo from '../../assets/argentBankLogo.png'
 import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import { userLogout } from '../../services/store';
 
 const Header = () => {
-
-    const isAuthenticated = useSelector(state => state.isLogged);
-
+    
     const handleLogout = () => {
-        // appeler userLogout
-      };
+        dispatch(userLogout());
+    };
+    const isAuthenticated = useSelector(state => state.isLogged);
+    const dispatch = useDispatch();
+
     
     return (
         <header>
@@ -20,11 +23,11 @@ const Header = () => {
                 </Link>
                 <div>
                     {isAuthenticated ? (
-                        <Link className="main-nav-item" to="/">
+                        <Link onClick={handleLogout} className="main-nav-item" to="/">
                             <i className="fa fa-sign-out"></i>Sign Out
                         </Link>
                     ):(
-                        <Link onClick={handleLogout} className="main-nav-item" to="/login">
+                        <Link className="main-nav-item" to="/login">
                             <i className="fa fa-user-circle"></i>Sign In
                         </Link>
                     )}
