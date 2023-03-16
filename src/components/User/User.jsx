@@ -1,14 +1,15 @@
 import './User.css'
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { userLogin } from '../../services/store';
 
 const User = () => {
   const [userData, setUserData] = useState(null);
+  const dispatch = useDispatch();
   //const fullName = userData && userData.body.firstName + " " + userData.body.lastName
   const firstName = useSelector(state => state.firstName);
   const lastName = useSelector(state => state.lastName);
-  console.log(firstName);
-  const fullName = firstName + " " + lastName;
+  const fullName = firstName !== null ? firstName + " " + lastName : '';
   
   //console.log(token);
   //const token = localStorage.getItem('token')
@@ -31,12 +32,9 @@ const User = () => {
           return response.json();
         })
         .then((data) => {
-          setUserData(data);
-          console.log(data);
-          
-          /* je pense qu'il faut refaire un dispatch pour envoyer la data dans le store
-          dans userLogin et récupérer firstName et lastName ici au lieu d'en haut
-          */
+          //setUserData(data);
+          //console.log(data);
+          dispatch(userLogin(data.body));
 
         })
         .catch((error) => {
@@ -45,7 +43,7 @@ const User = () => {
     };
   
     fetchUserData();
-  }, [token]);
+  }, [dispatch, token]);
 
 
   return (
