@@ -1,7 +1,6 @@
 import './User.css'
 import React, { useState, useEffect } from "react";
 import { useSelector } from 'react-redux'
-import { userLogin } from '../../services/store';
 import { useDispatch } from 'react-redux';
 
 const User = () => {
@@ -11,12 +10,11 @@ const User = () => {
   const lastName = useSelector(state => state.lastName);
   console.log(firstName);
   const fullName = firstName + " " + lastName;
-  const dispatch = useDispatch();
-  dispatch(userLogin({firstName: firstName}));
-  console.log(dispatch(userLogin({firstName: firstName})));
-  //const token = useSelector(state => state.token);
+  
   //console.log(token);
-  const token = localStorage.getItem('token')
+  //const token = localStorage.getItem('token')
+  const token = useSelector(state => state.token);
+  console.log(token);
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -51,6 +49,7 @@ const User = () => {
         <main className="main bg-dark">
             <div className="header">
                 <h1>Welcome back<br />{fullName}</h1>
+                <h1>Token:<br />{token}</h1>
                 <button className="edit-button">Edit Name</button>
             </div>
             <h2 className="sr-only">Accounts</h2>
