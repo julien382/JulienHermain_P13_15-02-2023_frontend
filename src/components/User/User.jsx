@@ -1,18 +1,13 @@
 import './User.css'
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { userLogin } from '../../services/store';
 
 const User = () => {
-  const [userData, setUserData] = useState(null);
   const dispatch = useDispatch();
-  //const fullName = userData && userData.body.firstName + " " + userData.body.lastName
   const firstName = useSelector(state => state.firstName);
   const lastName = useSelector(state => state.lastName);
   const fullName = firstName !== null ? firstName + " " + lastName : '';
-  
-  //console.log(token);
-  //const token = localStorage.getItem('token')
   const token = useSelector(state => state.token);
   console.log(token);
 
