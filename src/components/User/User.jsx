@@ -33,6 +33,11 @@ const User = () => {
         .then((data) => {
           setUserData(data);
           console.log(data);
+          
+          /* je pense qu'il faut refaire un dispatch pour envoyer la data dans le store
+          dans userLogin et récupérer firstName et lastName ici au lieu d'en haut
+          */
+
         })
         .catch((error) => {
           console.error(error);
