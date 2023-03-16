@@ -1,7 +1,7 @@
 import './User.css'
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { userLogin } from '../../services/store';
+import { userLogin, userUpdate } from '../../services/store';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -9,7 +9,19 @@ const User = () => {
   const lastName = useSelector(state => state.lastName);
   const fullName = firstName !== null ? firstName + " " + lastName : '';
   const token = useSelector(state => state.token);
-  console.log(token);
+
+  const handleEditButton  = (e) => {
+
+  };
+  
+  const handleNameChange  = (e) => {
+    e.preventDefault();
+  
+    // Obtenir les données de l'input
+    const { name, value } = e.target;
+    // Envoyer les données au store en utilisant l'action `userUpdate`
+    dispatch(userUpdate({ [name]: value }));
+  };
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -27,8 +39,6 @@ const User = () => {
           return response.json();
         })
         .then((data) => {
-          //setUserData(data);
-          //console.log(data);
           dispatch(userLogin(data.body));
 
         })
@@ -46,8 +56,12 @@ const User = () => {
         <main className="main bg-dark">
             <div className="header">
                 <h1>Welcome back<br />{fullName}</h1>
-                <button className="edit-button">Edit Name</button>
+                <button className="edit-button" onClick={handleEditButton}>Edit Name</button>
             </div>
+
+            <input type="text" name="firstName" onChange={handleNameChange } />
+            <input type="text" name="lastName" onChange={handleNameChange } />
+            
             <h2 className="sr-only">Accounts</h2>
             <section className="account">
                 <div className="account-content-wrapper">

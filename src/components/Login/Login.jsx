@@ -52,12 +52,8 @@ const Login = () => {
                 if(response.status === 200){
                     setErrorMessage('');
                     const data = await response.json()
-                    
-                    //localStorage.setItem("token", data.body.token);
-                    
+                                        
                     dispatch(userAuthentification(data))
-                    console.log(dispatch(userAuthentification(data)));
-                    console.log(data);
                                         
                     // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
                     if (rememberMe) {
