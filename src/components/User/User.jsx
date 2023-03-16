@@ -5,9 +5,6 @@ import { userLogin } from '../../services/store';
 
 const User = () => {
   const dispatch = useDispatch();
-  const firstName = useSelector(state => state.firstName);
-  const lastName = useSelector(state => state.lastName);
-  const fullName = firstName !== null ? firstName + " " + lastName : '';
   const token = useSelector(state => state.token);
   console.log(token);
 
@@ -45,8 +42,7 @@ const User = () => {
     <div>
         <main className="main bg-dark">
             <div className="header">
-                <h1>Welcome back<br />{fullName}</h1>
-                <h1>Token:<br />{token}</h1>
+                <h1>Welcome back</h1>
                 <button className="edit-button">Edit Name</button>
             </div>
             <h2 className="sr-only">Accounts</h2>

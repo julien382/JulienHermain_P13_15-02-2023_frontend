@@ -4,9 +4,11 @@ import argentBankLogo from '../../assets/argentBankLogo.png'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux';
 import { userLogout } from '../../services/store';
+import iconProfile from '../../assets/profile.svg'
 
 const Header = () => {
     
+    const firstName = useSelector(state => state.firstName);
     const isAuthenticated = useSelector(state => state.isLogged);
     const dispatch = useDispatch();
     const handleLogout = () => {
@@ -23,9 +25,15 @@ const Header = () => {
                 </Link>
                 <div>
                     {isAuthenticated ? (
-                        <Link onClick={handleLogout} className="main-nav-item" to="/">
-                            <i className="fa fa-sign-out"></i>Sign Out
-                        </Link>
+                        <div className='row'>
+                            <div className='row'>
+                                <img src={iconProfile} alt="Profile Icon"/>
+                                <p className='firstName'>{firstName}</p>
+                            </div>
+                            <Link onClick={handleLogout} className="main-nav-item" to="/">
+                                <i className="fa fa-sign-out"></i>Sign Out
+                            </Link>
+                        </div>
                     ):(
                         <Link className="main-nav-item" to="/login">
                             <i className="fa fa-user-circle"></i>Sign In

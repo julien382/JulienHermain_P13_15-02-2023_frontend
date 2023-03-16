@@ -32,3 +32,13 @@
     max-width: 100%;
     width: 200px;
 }
+
+.row{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.firstName{
+    margin-right: 35px;
+}
