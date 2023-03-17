@@ -16,7 +16,6 @@ const User = () => {
   };
 
   const handleCancelButton  = (e) => {
-    console.log("toto");
     setIsEdit(false);
   };
   
@@ -72,7 +71,7 @@ const User = () => {
                   </div>
                   <div className='editButton'>
                     <button className="edit-button" >Save</button>
-                    <button className="edit-button" onChange={handleCancelButton}>Cancel</button>
+                    <button className="edit-button" onClick={handleCancelButton}>Cancel</button>
                   </div>
                 </div>
               </div>
