@@ -1,5 +1,5 @@
 import './User.css'
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { userLogin, userUpdate } from '../../services/store';
 
@@ -9,9 +9,15 @@ const User = () => {
   const lastName = useSelector(state => state.lastName);
   const fullName = firstName !== null ? firstName + " " + lastName : '';
   const token = useSelector(state => state.token);
+  const [isEdit, setIsEdit] = useState(false);
 
   const handleEditButton  = (e) => {
+    setIsEdit(true);
+  };
 
+  const handleCancelButton  = (e) => {
+    console.log("toto");
+    setIsEdit(false);
   };
   
   const handleNameChange  = (e) => {
@@ -54,22 +60,30 @@ const User = () => {
   return (
     <div>
         <main className="main bg-dark">
-            <div className="header">
-                <h1>Welcome back<br />{fullName}</h1>
-                <button className="edit-button" onClick={handleEditButton}>Edit Name</button>
-            </div>
-            
-            <div className='edit'>
-              <div className='editInput'>
-                <input type="text" name="firstName" onChange={handleNameChange } placeholder={firstName}/>
-                <input type="text" name="lastName" onChange={handleNameChange } placeholder={lastName}/>
+            {isEdit ? (
+              <div>
+                <div className="header">
+                    <h1>Welcome back<br /></h1>
+                </div>
+                <div className='edit'>
+                  <div className='editInput'>
+                    <input type="text" name="firstName" onChange={handleNameChange} placeholder={firstName}/>
+                    <input type="text" name="lastName" onChange={handleNameChange} placeholder={lastName}/>
+                  </div>
+                  <div className='editButton'>
+                    <button className="edit-button" >Save</button>
+                    <button className="edit-button" onChange={handleCancelButton}>Cancel</button>
+                  </div>
+                </div>
               </div>
-              <div className='editButton'>
-                <button className="edit-button" >Save</button>
-                <button className="edit-button" >Cancel</button>
-              </div>
-
-            </div>
+              ):(
+                <div>
+                  <div className="header">
+                      <h1>Welcome back<br />{fullName}</h1>
+                  </div>
+                  <button className="edit-button editName" onClick={handleEditButton}>Edit Name</button>
+                </div>
+              )}
             
             <h2 className="sr-only">Accounts</h2>
             <section className="account">
