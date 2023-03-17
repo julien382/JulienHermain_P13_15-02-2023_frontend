@@ -58,9 +58,18 @@ const User = () => {
                 <h1>Welcome back<br />{fullName}</h1>
                 <button className="edit-button" onClick={handleEditButton}>Edit Name</button>
             </div>
+            
+            <div className='edit'>
+              <div className='editInput'>
+                <input type="text" name="firstName" onChange={handleNameChange } placeholder={firstName}/>
+                <input type="text" name="lastName" onChange={handleNameChange } placeholder={lastName}/>
+              </div>
+              <div className='editButton'>
+                <button className="edit-button" >Save</button>
+                <button className="edit-button" >Cancel</button>
+              </div>
 
-            <input type="text" name="firstName" onChange={handleNameChange } />
-            <input type="text" name="lastName" onChange={handleNameChange } />
+            </div>
             
             <h2 className="sr-only">Accounts</h2>
             <section className="account">

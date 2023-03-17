@@ -1,0 +1,31 @@
+.edit{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.editInput{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editInput > input{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.editButton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.editButton > button{
+    width: 100px;
+    margin-top: 15px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 15px;
+}
