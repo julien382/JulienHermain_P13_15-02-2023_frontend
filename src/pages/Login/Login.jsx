@@ -37,7 +37,7 @@ const Login = () => {
     const onSubmit = async (event) => {
         event.preventDefault()
         const payload = {email, password}
-        
+
         try {
             const response = await fetch("http://localhost:3001/api/v1/user/login",
             {
@@ -48,6 +48,7 @@ const Login = () => {
                 body:JSON.stringify(payload)
             })
 
+
             if (response.ok){
                 if(response.status === 200){
                     setErrorMessage('');
@@ -57,9 +58,9 @@ const Login = () => {
                                         
                     // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
                     if (rememberMe) {
-                        localStorage.setItem('loginInfo', JSON.stringify(payload));
+                        localStorage.setItem('access-token', JSON.stringify(data.body.token));
                     } else {
-                        localStorage.removeItem('loginInfo');
+                        localStorage.removeItem('access-token');
                     }
                     navigate('/user');
                 }

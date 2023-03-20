@@ -40,6 +40,7 @@ const userSlice = createSlice({
     },
 
     userLogout() {
+      localStorage.clear()
       // reset the state to its initial value
       return initialState
     },

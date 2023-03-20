@@ -2,14 +2,56 @@ import './User.css'
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import { userLogin, userUpdate } from '../../services/store';
+import { useNavigate } from 'react-router-dom';
 
 const User = () => {
+  const [isEdit, setIsEdit] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const reduxToken = useSelector(state => state.token);
   const firstName = useSelector(state => state.firstName);
   const lastName = useSelector(state => state.lastName);
   const fullName = firstName !== null ? firstName + " " + lastName : '';
-  const token = useSelector(state => state.token);
-  const [isEdit, setIsEdit] = useState(false);
+
+  const localToken = localStorage.getItem('access-token')
+
+  useEffect(() => {
+    // si y'a aucun des deux, on redirige vers /
+    if (reduxToken.length === 0 && !localToken) {
+      navigate('/')
+      return
+    }
+    
+    // si un token dans redux => on l'utilise
+    // sinon si un token dans localStorage, on l'utilise
+    const token = reduxToken.length > 0 ? reduxToken : localToken.replace(/"/g,'')
+    fetchUserData(token);
+  }, []);
+
+  const fetchUserData = async (token) => {
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+  
+      if (response.ok && response.status === 200) {
+        const data = await response.json();
+        dispatch(userLogin(data.body));
+      }
+      else {
+        navigate('/')
+        throw new Error("Impossible de récupérer les données de l'utilisateur");
+      }
+    } catch (error) {
+      navigate('/')
+      console.log(error);
+    }
+  };
 
   const handleEditButton  = (e) => {
     setIsEdit(true);
@@ -28,32 +70,6 @@ const User = () => {
     dispatch(userUpdate({ [name]: value }));
   };
 
-  useEffect(() => {
-    const fetchUserData = () => {
-      fetch("http://localhost:3001/api/v1/user/profile", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Impossible de récupérer les données de l'utilisateur");
-          }
-          return response.json();
-        })
-        .then((data) => {
-          dispatch(userLogin(data.body));
-
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
-  
-    fetchUserData();
-  }, [dispatch, token]);
 
 
   return (
