@@ -53,6 +53,35 @@ const User = () => {
     }
   };
 
+  const editUserData = async (token) => {
+    try {
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ firstName, lastName }),
+      })
+  
+      if (response.ok && response.status === 200) {
+        const data = await response.json();
+        dispatch(userLogin(data.body));
+        setIsEdit(false);
+      }
+      else {
+        throw new Error("Impossible de mettre à jour les données de l'utilisateur");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSaveButton = () => {
+    userUpdate(firstName, lastName);
+    setIsEdit(false);
+  };
+  
   const handleEditButton  = (e) => {
     setIsEdit(true);
   };
@@ -86,7 +115,7 @@ const User = () => {
                     <input type="text" name="lastName" onChange={handleNameChange} placeholder={lastName}/>
                   </div>
                   <div className='editButton'>
-                    <button className="edit-button" >Save</button>
+                    <button className="edit-button" onClick={handleSaveButton}>Save</button>
                     <button className="edit-button" onClick={handleCancelButton}>Cancel</button>
                   </div>
                 </div>
