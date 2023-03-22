@@ -66,6 +66,7 @@ const User = () => {
   
       if (response.ok && response.status === 200) {
         const data = await response.json();
+        console.log(data);
         dispatch(userLogin(data.body));
         setIsEdit(false);
       }
@@ -77,9 +78,10 @@ const User = () => {
     }
   };
 
-  const handleSaveButton = () => {
-    userUpdate(firstName, lastName);
-    setIsEdit(false);
+  const handleSaveButton  = (e) => {
+    const token = reduxToken.length > 0 ? reduxToken : localToken.replace(/"/g,'')
+    const payload = { firstName, lastName };
+    editUserData(token, payload);
   };
   
   const handleEditButton  = (e) => {
@@ -92,13 +94,16 @@ const User = () => {
   
   const handleNameChange  = (e) => {
     e.preventDefault();
-  
-    // Obtenir les données de l'input
-    const { name, value } = e.target;
-    // Envoyer les données au store en utilisant l'action `userUpdate`
-    dispatch(userUpdate({ [name]: value }));
-  };
 
+    const { name, value } = e.target;
+  
+    // Mettre à jour le champ approprié avec la nouvelle valeur
+    if (name === "firstName") {
+      dispatch(userUpdate({ firstName: value, lastName }));
+    } else if (name === "lastName") {
+      dispatch(userUpdate({ firstName, lastName: value }));
+    }
+  };
 
 
   return (
