@@ -316,3 +316,61 @@ definitions:
         type: string
       lastName:
         type: string
+  TransactionsResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+        example: Response status message
+      body:
+        type: array
+        items:
+          $ref: "#/definitions/Transaction"
+  TransactionResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+        example: Response status message
+      body:
+        $ref: "#/definitions/Transaction"
+  Transaction:
+    type: object
+    properties:
+      id:
+        type: string
+        description: transaction ID
+      created:
+        type: string
+        description: transaction date
+      description:
+        type: string
+        description: transaction description
+      amount:
+        type: number
+        description: transaction amount
+      balance:
+        type: number
+        description: account balance after transaction
+      transactionType:
+        type: string
+        description: transaction type
+      category:
+        type: string
+        description: transaction category
+      note:
+        type: string
+        description: user's notes for transaction
+  TransactionDescription:
+    type: object
+    properties:
+      category:
+        type: string
+        description: transaction's category
+      note:
+        type: string
+        description: user's notes for transaction
