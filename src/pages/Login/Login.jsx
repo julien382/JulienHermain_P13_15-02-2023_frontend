@@ -19,12 +19,12 @@ const Login = () => {
     }
 
     useEffect(() => {
-        // Récupérer les informations de connexion stockées dans le stockage local
+        // Retrieve login information stored in local storage
         const savedLoginInfo = JSON.parse(localStorage.getItem('loginInfo')) || {};
         const savedEmail = savedLoginInfo.email || '';
         const savedPassword = savedLoginInfo.password || '';
     
-        // Pré-remplir le champ de mot de passe si des informations de connexion ont été stockées
+        // Pre-fill the password field if login information has been stored
         if (savedEmail !== '') {
             setEmail(savedEmail);
         }
@@ -39,7 +39,7 @@ const Login = () => {
         const payload = {email, password}
 
         try {
-            const response = await fetch("http://localhost:3001/api/v1/user/login",
+            const response = await fetch("http://localhost:3001/api/v1/user/login", // retrieve data from database
             {
                 method:"POST",
                 headers:{
@@ -53,10 +53,10 @@ const Login = () => {
                 if(response.status === 200){
                     setErrorMessage('');
                     const data = await response.json()
-                                        
+                    // send data in redux                    
                     dispatch(userAuthentification(data))
                                         
-                    // stocker les informations de connexion si la case "Se souvenir de moi" est cochée
+                    // store login information if the "Remember me" box is checked
                     if (rememberMe) {
                         localStorage.setItem('access-token', JSON.stringify(data.body.token));
                     } else {

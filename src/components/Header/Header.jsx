@@ -8,11 +8,11 @@ import iconProfile from '../../assets/profile.svg'
 
 const Header = () => {
     
-    const firstName = useSelector(state => state.firstName);
-    const isAuthenticated = useSelector(state => state.isLogged);
-    const dispatch = useDispatch();
+    const firstName = useSelector(state => state.firstName); // show username
+    const isAuthenticated = useSelector(state => state.isLogged); // login information
+    const dispatch = useDispatch(); 
     const handleLogout = () => {
-        dispatch(userLogout());
+        dispatch(userLogout());// logout button
     };
 
     

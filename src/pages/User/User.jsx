@@ -5,11 +5,11 @@ import { userLogin, userUpdate } from '../../services/store';
 import { useNavigate } from 'react-router-dom';
 
 const User = () => {
-  const [isEdit, setIsEdit] = useState(false);
+  const [isEdit, setIsEdit] = useState(false); // edit button
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const reduxToken = useSelector(state => state.token);
+  const reduxToken = useSelector(state => state.token); // recovery data in redux
   const firstName = useSelector(state => state.firstName);
   const lastName = useSelector(state => state.lastName);
   const fullName = firstName !== null ? firstName + " " + lastName : '';
@@ -17,21 +17,21 @@ const User = () => {
   const localToken = localStorage.getItem('access-token')
 
   useEffect(() => {
-    // si y'a aucun des deux, on redirige vers /
+    // if there is neither, we redirect to / (home)
     if (reduxToken.length === 0 && !localToken) {
       navigate('/')
       return
     }
     
-    // si un token dans redux => on l'utilise
-    // sinon si un token dans localStorage, on l'utilise
+    // if a token in redux => we use it
+    // otherwise if there is a token in localStorage, we use the localStorge
     const token = reduxToken.length > 0 ? reduxToken : localToken.replace(/"/g,'')
     fetchUserData(token);
   }, []);
 
   const fetchUserData = async (token) => {
     try {
-      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", { // retrieve data from database
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const User = () => {
 
   const editUserData = async (token) => {
     try {
-      const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+      const response = await fetch("http://localhost:3001/api/v1/user/profile", { // edit data from database
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -84,20 +84,20 @@ const User = () => {
     editUserData(token, payload);
   };
   
-  const handleEditButton  = (e) => {
+  const handleEditButton  = (e) => { // editButton
     setIsEdit(true);
   };
 
-  const handleCancelButton  = (e) => {
+  const handleCancelButton  = (e) => { // cancelEditButton
     setIsEdit(false);
   };
   
-  const handleNameChange  = (e) => {
+  const handleNameChange  = (e) => { // change the name
     e.preventDefault();
 
     const { name, value } = e.target;
   
-    // Mettre à jour le champ approprié avec la nouvelle valeur
+    // Update the appropriate field with the new value
     if (name === "firstName") {
       dispatch(userUpdate({ firstName: value, lastName }));
     } else if (name === "lastName") {

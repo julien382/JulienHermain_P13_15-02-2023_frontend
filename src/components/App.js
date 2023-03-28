@@ -16,7 +16,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // vérifier s'il y a un JWT dans le local storage
+    // check if there is a JWT in the local storage
     const JWT = localStorage.getItem('access-token');
     if(JWT) {
       navigate('/user');

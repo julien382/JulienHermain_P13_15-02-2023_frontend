@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+const initialState = { // initialState of my data
   isLogged: false,
   token: '',
   id: '',
