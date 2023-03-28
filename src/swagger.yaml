@@ -178,7 +178,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: transactionId
+          name: Id
           required: true
           type: integer
         - in: header
@@ -209,7 +209,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: transactionId
+          name: Id
           required: true
           type: integer
         - in: header
@@ -244,7 +244,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: transactionId
+          name: Id
           description: ID of the transaction to delete
           type: integer
           required: true
