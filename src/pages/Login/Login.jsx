@@ -19,6 +19,7 @@ const Login = () => {
     }
 
     useEffect(() => {
+        // Remember Me
         // Retrieve login information stored in local storage
         const savedLoginInfo = JSON.parse(localStorage.getItem('loginInfo')) || {};
         const savedEmail = savedLoginInfo.email || '';

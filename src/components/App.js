@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import {Routes, Route, useNavigate} from "react-router-dom"
+import {Routes, Route, Navigate} from "react-router-dom"
 
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
@@ -13,30 +12,23 @@ import '../styles/reset.css';
 import '../styles/index.css';
 
 function App() {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // check if there is a JWT in the local storage
-    const JWT = localStorage.getItem('access-token');
-    if(JWT) {
-      navigate('/user');
-    }
-  }, [])
+  const jwt = localStorage.getItem("access-token");
 
 
-  return (
-    <div id="app">
-      <Header />
+    return (
+      <>
+        <Header />
         <Routes>
-          <Route path="/" element={<Home />} />1
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/user" element={<User />} />
           <Route path="/error" element={<Error />} />
+          <Route path="/login" element={jwt ? <Navigate to="/" /> : <Login />} />
           <Route path="/*" element={<Error />} />
         </Routes>
-      <Footer />
-    </div>
-  );
-}
+        <Footer />
+      </>
+    );
+  }
 
 export default App;
